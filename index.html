@@ -1,251 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Subscription Checker</title>
-    <script src="https://apis.google.com/js/api.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f0f0f0;
-        color: #333;
-        line-height: 1.7;
-      }
-      header, main, footer {
-        width: 90%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px 0;
-      }
-      header {
-        text-align: center;
-      }
-      header h1 {
-        font-size: 2.2rem;
-        font-weight: 600;
-        color: #2c3e50;
-        margin-bottom: 0.5rem;
-      }
-      header p {
-        font-size: 1.1rem;
-        color: #667;
-      }
-      main {
-        padding-bottom: 40px;
-        text-align: center;
-      }
-      section {
-        margin-bottom: 60px;
-        background-color: #fff;
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      }
-      section h2 {
-        font-size: 2rem;
-        color: #2c3e50;
-        margin-bottom: 1.5rem;
-        text-align: center;
-      }
-      .cta-button {
-        display: inline-block;
-        padding: 14px 32px;
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: white;
-        background-color: #3498db;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        margin-top: 1rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-      }
-      .cta-button:hover {
-        background-color: #2980b9;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      }
-      #subscription-status {
-        font-size: 1.2rem;
-        margin-top: 2rem;
-        font-weight: 600;
-      }
-      #access-granted {
-        color: #27ae60;
-      }
-      #access-denied {
-        color: #e74c3c;
-      }
-      footer {
-        text-align: center;
-        font-size: 0.9rem;
-        color: #888;
-        border-top: 1px solid #eee;
-        padding-top: 30px;
-      }
-      footer p {
-        margin-bottom: 0.5rem;
-      }
-      @media (max-width: 768px) {
-        header h1 {
-          font-size: 2rem;
-        }
-        header p {
-          font-size: 1rem;
-        }
-        .cta-button {
-          font-size: 1.1rem;
-          padding: 12px 28px;
-        }
-        section {
-          padding: 30px;
-        }
-        section h2 {
-          font-size: 1.75rem;
-        }
-      }
-      @media (max-width: 480px) {
-        header h1 {
-          font-size: 1.75rem;
-        }
-        header p {
-          font-size: 0.9rem;
-        }
-        .cta-button {
-          font-size: 1rem;
-          padding: 10px 24px;
-        }
-        section {
-          padding: 20px;
-        }
-        section h2 {
-          font-size: 1.5rem;
-        }
-      }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YouTube Subscription Checker</title>
+  <!-- Load Google APIs -->
+  <script src="https://apis.google.com/js/api.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      color: #333;
+      line-height: 1.7;
+    }
+    header, main, footer {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+    header {
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: #667;
+    }
+    main {
+      padding-bottom: 40px;
+      text-align: center;
+    }
+    section {
+      margin-bottom: 60px;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+    section h2 {
+      font-size: 2rem;
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+    }
+    .cta-button {
+      display: inline-block;
+      padding: 14px 32px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: white;
+      background-color: #3498db;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-top: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    .cta-button:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+    #subscription-status, #access-message {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      font-weight: 600;
+    }
+    #access-granted { color: #27ae60; }
+    #access-denied { color: #e74c3c; }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      border-top: 1px solid #eee;
+      padding-top: 30px;
+    }
+    footer a { color: #3498db; text-decoration: none; }
+    @media (max-width: 768px) {
+      header h1 { font-size: 2rem; }
+      header p { font-size: 1rem; }
+      .cta-button { font-size: 1.1rem; padding: 12px 28px; }
+      section { padding: 30px; }
+      section h2 { font-size: 1.75rem; }
+    }
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.75rem; }
+      header p { font-size: 0.9rem; }
+      .cta-button { font-size: 1rem; padding: 10px 24px; }
+      section { padding: 20px; }
+      section h2 { font-size: 1.5rem; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Unlock Premium Access</h1>
-        <p>Sign in with your Google account to check your YouTube subscription status.</p>
-    </header>
+  <header>
+    <h1>Unlock Premium Access</h1>
+    <p>Sign in with your Google account to check your YouTube subscription status.</p>
+  </header>
 
-    <main>
-        <section>
-            <h2>Access Exclusive Content</h2>
-            <button id="signin-button" class="cta-button">Sign in with Google</button>
-            <div id="subscription-status"></div>
-            <div id="product-access" style="margin-top: 2rem;">
-                <h2>Product Access</h2>
-                <p id="access-message">Please sign in to check your subscription status.</p>
-            </div>
-        </section>
-    </main>
+  <main>
+    <section>
+      <h2>Access Exclusive Content</h2>
+      <button id="signin-button" class="cta-button">Sign in with Google</button>
+      <div id="subscription-status"></div>
+      <div id="product-access" style="margin-top: 2rem;">
+        <h2>Product Access</h2>
+        <p id="access-message">Please sign in to check your subscription status.</p>
+      </div>
+    </section>
+  </main>
 
-    <footer>
-        <p>© 2024 My Company. All rights reserved.</p>
-        <p><a href="/privacy-policy">Privacy Policy</a></p>
-        <p>Contact: support@example.com</p>
-    </footer>
+  <footer>
+    <p>© 2024 My Company. All rights reserved.</p>
+    <p><a href="/privacy-policy">Privacy Policy</a></p>
+    <p>Contact: support@example.com</p>
+  </footer>
 
-    <script>
-        const CLIENT_ID = '841626532904-g502k1pofmfgg6r1vpl8eq4p4n6cdr9k.apps.googleusercontent.com'; // Replace with your Client ID
-        const YOUR_CHANNEL_ID = 'CMjrKCO3Y8_i1I_WOw6QQzw'; // Replace with your Channel ID
+  <script>
+    // Replace these placeholders with your actual credentials
+    const CLIENT_ID = '841626532904-g502k1pofmfgg6r1vpl8eq4p4n6cdr9k.apps.googleusercontent.com';
+    const YOUR_API_KEY = 'AIzaSyCjElXTc49dTMPI99updMfkeKmkAUadjUo';
+    const YOUR_CHANNEL_ID = 'CMjrKCO3Y8_i1I_WOw6QQzw';
 
-        let signInButton; // Declare signInButton outside initClient
+    // Initialize the Google API client library after the page loads
+    function start() {
+      gapi.load('client:auth2', initClient);
+    }
 
-        function start() { // Wrap everything that needs to happen after the library loads
-            gapi.load('client', () => {
-                initClient(); // Call initClient after gapi.load
-            });
-        }
+    function initClient() {
+      gapi.client.init({
+        clientId: CLIENT_ID,
+        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
+        scope: 'https://www.googleapis.com/auth/youtube.readonly'
+      }).then(() => {
+        const signInButton = document.getElementById('signin-button');
+        signInButton.addEventListener('click', handleAuthClick);
+        // Listen for sign-in state changes.
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+        // Handle the initial sign-in state.
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+      }).catch(error => {
+        console.error("Error initializing Google API client:", error);
+        document.getElementById('subscription-status').textContent = 'Error initializing Google API client. Check console.';
+      });
+    }
 
-        function initClient() {
-            gapi.client.init({
-                clientId: CLIENT_ID,
-                discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
-                scope: 'https://www.googleapis.com/auth/youtube.readonly'
-            }).then(() => {
-                signInButton = document.getElementById('signin-button'); // NOW it's safe to get the button
-                signInButton.addEventListener('click', handleAuthClick);
-                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-            }).catch(error => {
-                console.error("Error initializing gapi client:", error);
-                document.getElementById('subscription-status').textContent = 'Error initializing Google API client. Check console.';
-            });
-        }
+    function handleAuthClick() {
+      gapi.auth2.getAuthInstance().signIn();
+    }
 
-        function handleAuthClick() {
-            gapi.auth2.getAuthInstance().signIn();
-        }
+    function updateSigninStatus(isSignedIn) {
+      const subscriptionStatusDiv = document.getElementById('subscription-status');
+      const accessMessage = document.getElementById('access-message');
+      const signInButton = document.getElementById('signin-button');
 
-        function updateSigninStatus(isSignedIn) {
-            const subscriptionStatusDiv = document.getElementById('subscription-status');
-            const accessMessage = document.getElementById('access-message');
+      if (isSignedIn) {
+        signInButton.style.display = 'none';
+        subscriptionStatusDiv.textContent = 'Checking your subscription...';
+        checkSubscription();
+      } else {
+        signInButton.style.display = 'block';
+        subscriptionStatusDiv.textContent = '';
+        accessMessage.textContent = 'Please sign in to check your subscription status.';
+        accessMessage.style.color = '';
+      }
+    }
 
-            if (isSignedIn) {
-                signInButton.style.display = 'none';
-                subscriptionStatusDiv.textContent = 'Checking your subscription...';
-                checkSubscription();
-            } else {
-                signInButton.style.display = 'block';
-                subscriptionStatusDiv.textContent = '';
-                accessMessage.textContent = 'Please sign in to check your subscription status.';
-                accessMessage.style.color = '';
+    function checkSubscription() {
+      gapi.client.setApiKey(YOUR_API_KEY);
+      gapi.client.youtube.subscriptions.list({
+        part: 'snippet',
+        mine: true,
+        maxResults: 100
+      }).then(response => {
+        const subscriptions = response.result.items;
+        let isSubscribed = false;
+        if (subscriptions) {
+          for (let i = 0; i < subscriptions.length; i++) {
+            if (subscriptions[i].snippet.resourceId.channelId === YOUR_CHANNEL_ID) {
+              isSubscribed = true;
+              break;
             }
+          }
         }
+        displaySubscriptionStatus(isSubscribed);
+      }).catch(error => {
+        console.error("Error checking subscription:", error);
+        document.getElementById('subscription-status').textContent = 'Error checking subscription status. Check console.';
+        document.getElementById('access-message').textContent = 'Error checking subscription. Please try again later.';
+        document.getElementById('access-message').style.color = '#e74c3c';
+      });
+    }
 
-        function checkSubscription() {
-            gapi.client.youtube.subscriptions.list({
-                part: 'snippet',
-                mine: true,
-                maxResults: 100 // You might need to adjust maxResults
-            }).then(response => {
-                const subscriptions = response.result.items;
-                let isSubscribed = false;
-                if (subscriptions) {
-                    for (let i = 0; i < subscriptions.length; i++) {
-                        if (subscriptions[i].snippet.resourceId.channelId === YOUR_CHANNEL_ID) {
-                            isSubscribed = true;
-                            break;
-                        }
-                    }
-                }
-                displaySubscriptionStatus(isSubscribed);
-            }).catch(error => {
-                console.error("Error checking subscription:", error);
-                document.getElementById('subscription-status').textContent = 'Error checking subscription status. Check console.';
-                document.getElementById('access-message').textContent = 'Error checking subscription. Please try again later.';
-                document.getElementById('access-message').style.color = '#e74c3c';
-            });
-        }
+    function displaySubscriptionStatus(isSubscribed) {
+      const subscriptionStatusDiv = document.getElementById('subscription-status');
+      const accessMessage = document.getElementById('access-message');
 
-        function displaySubscriptionStatus(isSubscribed) {
-            const subscriptionStatusDiv = document.getElementById('subscription-status');
-            const accessMessage = document.getElementById('access-message');
+      if (isSubscribed) {
+        subscriptionStatusDiv.textContent = 'You are subscribed!';
+        subscriptionStatusDiv.style.color = '#27ae60';
+        accessMessage.textContent = 'Access granted! You can now access the premium content.';
+        accessMessage.style.color = '#27ae60';
+        // Optionally, add further actions here, such as redirecting or revealing hidden content.
+      } else {
+        subscriptionStatusDiv.textContent = 'You are not subscribed.';
+        subscriptionStatusDiv.style.color = '#e74c3c';
+        accessMessage.textContent = 'Access denied. Please subscribe to our YouTube channel to access the premium content.';
+        accessMessage.style.color = '#e74c3c';
+      }
+    }
 
-            if (isSubscribed) {
-                subscriptionStatusDiv.textContent = 'You are subscribed!';
-                subscriptionStatusDiv.style.color = '#27ae60';
-                accessMessage.textContent = 'Access granted! You can now access the premium content.';
-                accessMessage.style.color = '#27ae60';
-            } else {
-                subscriptionStatusDiv.textContent = 'You are not subscribed.';
-                subscriptionStatusDiv.style.color = '#e74c3c';
-                accessMessage.textContent = 'Access denied. Please subscribe to access the premium content.';
-                accessMessage.style.color = '#e74c3c';
-            }
-        }
-
-        start(); // Call start instead of gapi.load inline
-    </script>
+    // Start the API client once the page loads
+    window.onload = start;
+  </script>
 </body>
 </html>
