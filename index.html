@@ -182,11 +182,11 @@
       gapi.client.youtube.subscriptions.list({
         part: 'snippet',
         mine: true,
-        maxResults: 100
+        maxResults: 1
       }).then(response => {
         const subscriptions = response.result.items;
         let isSubscribed = false;
-        if (subscriptions) {
+        if (subscriptions && subscriptions.length > 0) {
           for (let i = 0; i < subscriptions.length; i++) {
             if (subscriptions[i].snippet.resourceId.channelId === YOUR_CHANNEL_ID) {
               isSubscribed = true;
