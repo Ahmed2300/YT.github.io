@@ -157,7 +157,15 @@
 
     <script>
         const CLIENT_ID = '841626532904-g502k1pofmfgg6r1vpl8eq4p4n6cdr9k.apps.googleusercontent.com'; // Replace with your Client ID
-        const YOUR_CHANNEL_ID = 'UCMjrKCO3Y8_i1I_WOw6QQzw'; // Replace with your Channel ID
+        const YOUR_CHANNEL_ID = 'CMjrKCO3Y8_i1I_WOw6QQzw'; // Replace with your Channel ID
+
+        let signInButton; // Declare signInButton outside initClient
+
+        function start() { // Wrap everything that needs to happen after the library loads
+            gapi.load('client', () => {
+                initClient(); // Call initClient after gapi.load
+            });
+        }
 
         function initClient() {
             gapi.client.init({
@@ -165,7 +173,7 @@
                 discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
                 scope: 'https://www.googleapis.com/auth/youtube.readonly'
             }).then(() => {
-                const signInButton = document.getElementById('signin-button');
+                signInButton = document.getElementById('signin-button'); // NOW it's safe to get the button
                 signInButton.addEventListener('click', handleAuthClick);
                 gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
                 updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
@@ -180,7 +188,6 @@
         }
 
         function updateSigninStatus(isSignedIn) {
-            const signInButton = document.getElementById('signin-button');
             const subscriptionStatusDiv = document.getElementById('subscription-status');
             const accessMessage = document.getElementById('access-message');
 
@@ -238,7 +245,7 @@
             }
         }
 
-        gapi.load('client', initClient);
+        start(); // Call start instead of gapi.load inline
     </script>
 </body>
 </html>
